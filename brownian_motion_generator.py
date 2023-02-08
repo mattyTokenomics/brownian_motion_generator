@@ -253,7 +253,7 @@ def _get_OU_process_i(
     Simulates the OU process with an external dW.
     X_0 is taken as the asymptotic mean gamma if it is None.
     """
-    t = np.arange(T, dtype=np.float128)  # float to avoid np.exp overflow
+    t = np.arange(T, dtype=np.float64)  # float to avoid np.exp overflow
     exp_alpha_t = np.exp(-OU_params.alpha * t)
     integral_W = _get_integal_W(t, dW, OU_params)
     
