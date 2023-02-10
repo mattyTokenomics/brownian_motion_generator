@@ -80,7 +80,8 @@ def simulate_corr_OU_procs(
     T: int,
     OU_params: tuple,
     RUNS: int,
-    rho: Optional[tuple] = None
+    rho: Optional[tuple] = None,
+    initial_random_state: Optional[int] = 0,
 ) -> np.ndarray:
     """
     Simulate multiple OU processes correlated with the first (primary) OU process.
@@ -96,6 +97,7 @@ def simulate_corr_OU_procs(
         corresponds to the tuple index
     - RUNS is the integer number of total runs/simulations to generate
     - rho is a tuple of correlation coefficients between each process and the first (primary) OU process
+    - initial_random_state optional integer for initial random seed in order to make results reproduceable
     """
     
     _n_procs = len(OU_params) #_n_procs is the number of seperate processes to generate for each simulation
@@ -108,7 +110,7 @@ def simulate_corr_OU_procs(
     all_run_corr_dWs = []
     
     for run in tqdm.tqdm(range(0,RUNS)):
-        random_state = run #random_state is iterated each process and run to ensure unique random state for every process
+        random_state = initial_random_state + run #random_state is iterated each process and run to ensure unique random state for every process
         
         corr_dWs = _get_corr_dW_matrix(
             T, OU_params, run, rho, random_state,
