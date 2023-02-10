@@ -79,22 +79,22 @@ def estimate_OU_params(
 def simulate_corr_OU_procs(
     T: int,
     OU_params: tuple,
-    num_sims: int,
+    RUNS: int,
     rho: Optional[tuple] = None
 ) -> np.ndarray:
     """
     Simulate multiple OU processes correlated with the first (primary) OU process.
         Creates a 2D array of n_procs discrete Brownian Motion increments dW for each simulation.
         Each column of the array per each simulation is one process.
-        So the resulting shape of the array is (num_sims, T, n_procs).
+        So the resulting shape of the array is (RUNS, T, n_procs).
         Correlation can be None (0 correlation between each process and the first process),
         or a tuple of correlations (floats form -1 to +1) the same length as the number of processes to be simulated,
         with each respective correlation representing that processes' correlation with the first (primary) process.
-    - T is the integer number of steps to generate for each process, for each simulation
+    - T is the integer number of timesteps to generate for each process, for each simulation
     - OU_params is a tuple of OUParams. When using tuple with length more than 1
         to simulate multiple processes in parallel, each column in the resulting 2D array
         corresponds to the tuple index
-    - num_sims is the integer number of total simulations to generate
+    - RUNS is the integer number of total runs/simulations to generate
     - rho is a tuple of correlation coefficients between each process and the first (primary) OU process
     """
     
@@ -105,13 +105,13 @@ def simulate_corr_OU_procs(
         if len(rho) != _n_procs:
             raise ValueError("Tuple for rho must be equal in length to number of processes to simulate - length of OU_params.")
     
-    all_sim_corr_dWs = []
+    all_run_corr_dWs = []
     
-    for sim in tqdm.tqdm(range(0,num_sims)):
-        random_state = sim #random_state is iterated each process and sim to ensure unique random state for every process
+    for run in tqdm.tqdm(range(0,RUNS)):
+        random_state = run #random_state is iterated each process and run to ensure unique random state for every process
         
         corr_dWs = _get_corr_dW_matrix(
-            T, OU_params, sim, rho, random_state,
+            T, OU_params, run, rho, random_state,
         )
         
         OU_procs = []
@@ -119,8 +119,8 @@ def simulate_corr_OU_procs(
             OU_params_i = OU_params[i]
             dW_i = corr_dWs[:, i]
             OU_procs.append(_get_OU_process_i(T, OU_params_i, dW_i))
-        all_sim_corr_dWs.append(np.asarray(OU_procs).T)
-    return np.asarray(all_sim_corr_dWs)
+        all_run_corr_dWs.append(np.asarray(OU_procs).T)
+    return np.asarray(all_run_corr_dWs)
 
 
 def _create_custom_distribution(
@@ -158,7 +158,7 @@ def _create_custom_distribution(
 def _get_corr_dW_matrix(
     T: int,
     OU_params: tuple,
-    sim: int,
+    run: int,
     rho: Optional[float] = None,
     random_state: Optional[int] = None,
 ) -> np.ndarray:
@@ -166,9 +166,9 @@ def _get_corr_dW_matrix(
     Creates a 2D array of n_procs discrete Brownian Motion increments dW for a given simulation.
     Each column of the array is one process.
     So that the resulting shape of the array is (T, n_procs).
-        - T is the number of samples of each process
+        - T is the number of timesteps of each process
         - OU_params is the tuple of OU_params for the processes to simulate
-        - sim is the integer representation of the current simulation number
+        - run is the integer representation of the current run/simulation
         - rho is the correlation constant used to generate a new process
             which has rho correlation to the first (primary) random process already generated,
             hence rho is only an approximation to the pairwise correlation
@@ -178,7 +178,7 @@ def _get_corr_dW_matrix(
     dWs = []
     _n_procs = len(OU_params)
     for i in range(_n_procs):
-        random_state_i = _get_random_state_i(random_state, i, _n_procs, sim)
+        random_state_i = _get_random_state_i(random_state, i, _n_procs, run)
         if i == 0 or rho is None:
             dW_i = _get_dW(T, OU_params[i], random_state=random_state_i)
         else:
@@ -194,7 +194,7 @@ def _get_dW(
 ) -> np.ndarray:
     """
     Sample T times from the distribution to simulate discrete increments (dW) of a Brownian Motion.
-    - T: number of samples
+    - T: number of timesteps
     - OU_params: instance of OUParams for the series being simulated
     - random_state: optional random_state to reproduce results
     Uses np.random.default_rng for randomness as best practice over np.random.seed
@@ -235,13 +235,13 @@ def _get_random_state_i(
     random_state: Optional[int],
     i: int,
     num_procs: int,
-    sim: int
+    run: int
 ) -> Optional[int]:
     """
     Iterates the random_state each process in each simulation, so that every process has a unique random_state.
     This ensures there is no random_state used by any 2 processes, even across different simulation steps.
     """
-    return random_state if random_state is None else random_state + i + (sim * num_procs)
+    return random_state if random_state is None else random_state + i + (run * num_procs)
 
 
 def _get_OU_process_i(
