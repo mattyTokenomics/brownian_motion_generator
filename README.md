@@ -9,7 +9,7 @@ This can be used for testing trading straggles, risk analysis, tokenomics design
 To install, run:
 `pip install brownian-motion-generator`
 
-https://pypi.org/project/brownian-motion-generator/1.0.0/
+https://pypi.org/project/brownian-motion-generator/
 
 # Common Use Cases
 
