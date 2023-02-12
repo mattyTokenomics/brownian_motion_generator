@@ -6,7 +6,7 @@ setuptools.setup(
     author='MattyTokenomics',
     author_email='mattytokenomics@protonmail.com',
     description='Generating brownian motion random walks with custom skew, kurtosis, mean reversion, correlation, and non-normality.',
-    readme = "README.md"
+    readme = "README.md",
     url='https://github.com/mattyTokenomics/brownian_motion_generator',
     project_urls = {},
     license='GNU General Public License v3.0',
