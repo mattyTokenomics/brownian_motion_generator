@@ -1,8 +1,15 @@
 # Intro
 
-Library of functions to generate Brownian motion simulations for multiple series that exhibit mean reversion, correlation, and/or custom distributions that do not follow typical normal distributions.
+Library of functions to generate Brownian motion random walks for multiple series that exhibit mean reversion, correlation, skew, kurtosis, and/or custom distributions that do not follow typical normal distributions.
 
-This can be used for testing trading straggles, risk analysis, tokenomics design stress testing, and/or Monte Carlo simulations.
+This can be used for testing trading straggles, risk analysis, tokenomics design stress testing, Monte Carlo simulations, and inputs into existing testing, modeling, and simulation frameworks such as cadCAD and radCAD - see the Examples folder for details.
+
+# Installation
+
+To install, run:
+`pip install brownian-motion-generator`
+
+https://pypi.org/project/brownian-motion-generator/1.0.0/
 
 # Common Use Cases
 
@@ -13,14 +20,13 @@ This can be used for testing trading straggles, risk analysis, tokenomics design
 - Model positive feedback loops and/or death spirals in user behavior. For example generating random walks of NFT marketplace trading activity helps protocols identify and minimize the risks of wash trading.
 - Assumption testing. Generating random walks of critical model inputs can stress test any general system design to identify which assumptions must hold true for the system to be sustainable, and/or identity any assumptions which are unlikely to hold true in practice based on realistic random walks.
 
-
 # How to Use
 
-See the 'btc_and_eth_tutorial' Jupyter notebook file, or equivalent html file, for a quick example of generating multiple simulations of multiple correlated series with (highly) correlated, non-normal distributions of returns.
+See the examples folder for tutorials in Jupyter notebook and equivalent html file format. Tutorials cover quick examples of generating multiple simulations of multiple correlated series with mean reverting, correlated, and/or non-normal distributions of returns, and how to integrate the generated random walks into existing simulation frameworks such as radCAD.
 
 # Feedback, Questions, Improvements?
 
-Please open an issue on GitHub and feel free to [reach out](https://linktr.ee/tokenomics) on Discord, Twitter, or Telegram.
+Please open an issue on GitHub or [get in touch](https://linktr.ee/tokenomics).
 
 # Credits
 
