@@ -14,7 +14,6 @@ https://towardsdatascience.com/stochastic-processes-simulation-brownian-motion-t
 https://gist.github.com/raddy/4084ade3d3a82911d43df9375f9697f4
 '''
 
-from multiprocessing.sharedctypes import Value
 from typing import Optional, Union
 from dataclasses import dataclass
 from sklearn.linear_model import LinearRegression
