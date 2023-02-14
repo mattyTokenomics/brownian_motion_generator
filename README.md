@@ -6,7 +6,7 @@ This can be used for testing trading straggles, risk analysis, tokenomics design
 
 # Installation
 
-Download `brownian_motion_generator.py` and import from working directory via `import brownian_motion_generator`
+Download `/brownian_motion_generator/brownian_motion_generator.py` and import from working directory using `import brownian_motion_generator`
 
 # Common Use Cases
 
