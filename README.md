@@ -1,12 +1,14 @@
 # Intro
 
-Library of functions to generate Brownian motion random walks for multiple series that exhibit mean reversion, correlation, skew, kurtosis, and/or custom distributions that do not follow typical normal distributions.
+Library to generate Brownian motion random walks for multiple series that exhibit mean reversion, correlation, skew, kurtosis, and/or custom distributions that do not follow typical normal distributions.
 
-This can be used for testing trading straggles, risk analysis, tokenomics design stress testing, Monte Carlo simulations, and inputs into existing testing, modeling, and simulation frameworks such as cadCAD and radCAD - see the Examples folder for details.
+This can be used for testing trading strategies, risk analysis, tokenomics design stress testing, Monte Carlo simulations, and inputs into existing testing, modeling, and simulation frameworks such as cadCAD and radCAD - see the Examples folder for details.
 
-# Installation
+# Installation and Usage
 
-Download `/brownian_motion_generator/brownian_motion_generator.py` and import from working directory using `import brownian_motion_generator`
+`pip install brownian_motion_generator`
+
+`from brownian_motion_generator import brownian_motion_generator as bmg`
 
 # Common Use Cases
 
@@ -19,11 +21,11 @@ Download `/brownian_motion_generator/brownian_motion_generator.py` and import fr
 
 # How to Use
 
-See the examples folder for tutorials in Jupyter notebook and equivalent html file format. Tutorials cover quick examples of generating multiple simulations of multiple correlated series with mean reverting, correlated, and/or non-normal distributions of returns, and how to integrate the generated random walks into existing simulation frameworks such as radCAD.
+See the Examples folder for tutorials in Jupyter notebook and equivalent html file format. Tutorials cover quick examples of generating multiple simulations of multiple correlated series with mean reverting, correlated, and/or non-normal distributions of returns, and how to integrate the generated random walks into existing simulation frameworks such as radCAD.
 
 # Feedback, Questions, Improvements?
 
-Please open an issue on GitHub or [get in touch](https://linktr.ee/tokenomics).
+Please open an issue on GitHub or [get in touch](https://linktr.ee/tokenomics)
 
 # Credits
 
