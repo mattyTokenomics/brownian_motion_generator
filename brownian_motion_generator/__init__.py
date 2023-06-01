@@ -1,1 +1,1 @@
-import .brownian_motion_generator
+from . import brownian_motion_generator
